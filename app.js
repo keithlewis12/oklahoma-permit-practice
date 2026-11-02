@@ -387,9 +387,19 @@ function moduleBreakdown(items) {
 function startQuiz(mode, items, moduleId) {
   stopSpeech();
   clearExamTimer();
-  quizSession = { mode, moduleId, questions: mode === "exam" ? items : shuffle([...items]), index: 0, answers: {}, checked: {}, startedAt: Date.now(), secondsLeft: 3600 };
+  const orderedQuestions = mode === "exam" ? items : shuffle([...items]);
+  quizSession = { mode, moduleId, questions: orderedQuestions.map(shuffleAnswerChoices), index: 0, answers: {}, checked: {}, startedAt: Date.now(), secondsLeft: 3600 };
   renderQuiz();
   if (mode === "exam") startExamTimer();
+}
+
+function shuffleAnswerChoices(question) {
+  const choices = shuffle(question.choices.map((text, originalIndex) => ({ text, originalIndex })));
+  return {
+    ...question,
+    choices: choices.map(choice => choice.text),
+    answer: choices.findIndex(choice => choice.originalIndex === question.answer)
+  };
 }
 
 function renderQuiz() {
