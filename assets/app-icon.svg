@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Oklahoma permit practice road sign">
+  <rect width="64" height="64" rx="10" fill="#153f35"/>
+  <path d="M32 8 55 31 32 54 9 31Z" fill="#f6c344" stroke="#fff" stroke-width="3"/>
+  <path d="M22 38c7-1 7-13 14-13 3 0 5 2 7 5" fill="none" stroke="#18221f" stroke-width="5" stroke-linecap="round"/>
+  <path d="m40 25 5 6-8 1" fill="#18221f"/>
+</svg>
