@@ -8,7 +8,7 @@
   <title>Oklahoma Permit Practice</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/app-icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -71,12 +71,9 @@
   <dialog id="speech-dialog" aria-labelledby="speech-dialog-title">
     <form method="dialog" id="speech-form">
       <p class="eyebrow">Accessibility</p>
-      <h1 id="speech-dialog-title">Speech settings</h1>
-      <p>Choose a voice and reading speed. These settings apply to lessons, questions, answer choices, explanations, and results.</p>
+      <h1 id="speech-dialog-title">Read aloud settings</h1>
+      <p>Choose a comfortable reading speed. The app uses the normal voice supplied by this device.</p>
       <div class="speech-settings-grid">
-        <label>Voice
-          <select id="speech-voice" aria-label="Text-to-speech voice"><option value="">Device default</option></select>
-        </label>
         <label>Reading speed
           <select id="speech-rate" aria-label="Text-to-speech reading speed">
             <option value="0.7">Very slow</option>
@@ -88,14 +85,14 @@
         </label>
       </div>
       <div class="button-row">
-        <button class="secondary-button" id="test-voice" type="button">Test voice</button>
+        <button class="secondary-button" id="test-voice" type="button"><span class="speaker-icon" aria-hidden="true">🔊</span> Test read aloud</button>
         <button class="primary-button" value="close" type="submit">Done</button>
       </div>
-      <small>Available voices are supplied by this device and browser.</small>
+      <small>Using the device's normal English reading voice.</small>
     </form>
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=5" defer></script>
+  <script src="app.js?v=6" defer></script>
 </body>
 </html>
