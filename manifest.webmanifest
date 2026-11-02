@@ -1,0 +1,11 @@
+{
+  "name": "Oklahoma Permit Practice",
+  "short_name": "Permit Practice",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f3f6f4",
+  "theme_color": "#153f35",
+  "icons": [
+    {"src": "assets/app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+  ]
+}
