@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" role="img" aria-labelledby="title desc">
+  <title id="title">Road signs and an open study manual</title>
+  <desc id="desc">An open driver's manual beside stop, warning, and route signs.</desc>
+  <rect width="520" height="300" rx="12" fill="#edf5fb"/>
+  <path d="M0 246h520v54H0z" fill="#c8d7d2"/>
+  <path d="M212 300 286 126h54l79 174Z" fill="#44515b"/>
+  <path d="m273 300 35-174h12l36 174Z" fill="#f4f0df"/>
+  <path d="M314 160v28M314 214v28M314 270v28" stroke="#f6c344" stroke-width="7"/>
+  <path d="M57 237h72v-98H57z" fill="#fff" stroke="#153f35" stroke-width="4"/>
+  <path d="m93 78 49 20 1 105-50-18-50 18V98Z" fill="#fff" stroke="#153f35" stroke-width="5"/>
+  <path d="M93 78v107M54 111l29-10M54 130l29-10M103 101l28 10M103 121l28 10" stroke="#9caaa5" stroke-width="4"/>
+  <path d="M408 67 455 86l19 47-19 46-47 20-46-20-20-46 20-47Z" fill="#b83a32" stroke="#fff" stroke-width="7"/>
+  <text x="408" y="142" text-anchor="middle" font-family="Arial,sans-serif" font-size="31" font-weight="700" fill="#fff">STOP</text>
+  <path d="m210 37 59 59-59 59-59-59Z" fill="#f6c344" stroke="#fff" stroke-width="6"/>
+  <path d="M180 110c20-2 20-38 42-38 10 0 18 7 24 18" fill="none" stroke="#18221f" stroke-width="8" stroke-linecap="round"/>
+  <path d="m237 78 12 16-19 3" fill="#18221f"/>
+</svg>
