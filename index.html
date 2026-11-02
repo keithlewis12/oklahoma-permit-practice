@@ -8,7 +8,7 @@
   <title>Oklahoma Permit Practice</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/app-icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -23,7 +23,7 @@
         <span><strong>Oklahoma</strong><small>Permit Practice</small></span>
       </a>
       <div class="topbar-actions">
-        <button class="secondary-button compact" id="speech-settings-button" type="button">Speech settings</button>
+        <button class="secondary-button compact" id="speech-settings-button" type="button" aria-label="Read aloud settings" title="Read aloud settings"><span class="speaker-icon" aria-hidden="true">🔊</span><span class="speech-button-label">Read aloud</span></button>
         <button class="secondary-button compact" id="stop-speech" type="button">Stop reading</button>
         <button class="student-button" id="student-button" type="button" aria-label="Edit student name">
           <span class="student-initials" id="student-initials" aria-hidden="true">ST</span>
@@ -96,6 +96,6 @@
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=4" defer></script>
+  <script src="app.js?v=5" defer></script>
 </body>
 </html>
