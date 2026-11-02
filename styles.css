@@ -66,6 +66,18 @@ select { height: 38px; padding: 0 30px 0 10px; border: 1px solid var(--line); bo
 
 main { min-height: 100vh; margin-left: 236px; padding: 96px 34px 48px; }
 .page { width: min(1120px, 100%); margin: 0 auto; }
+.screen-speech-controller {
+  position: sticky; top: 78px; z-index: 12;
+  display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  margin: 0 0 22px; padding: 13px 15px;
+  border: 1px solid #9bb8ae; border-left: 5px solid var(--green-2); border-radius: 6px;
+  background: rgba(255,255,255,.97); box-shadow: var(--shadow);
+  backdrop-filter: blur(8px);
+}
+.speech-controller-copy { display: grid; gap: 2px; }
+.speech-controller-copy strong { font-size: 14px; }
+.speech-controller-copy span { color: var(--muted); font-size: 11px; }
+.screen-speech-controller .button-row { flex-wrap: nowrap; }
 .page-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
 .eyebrow { margin: 0 0 6px; color: var(--red); font-size: 11px; font-weight: 800; text-transform: uppercase; }
 h1, h2, h3, p { letter-spacing: 0; }
@@ -233,6 +245,7 @@ dialog small { display: block; margin-top: 12px; color: var(--muted); text-align
   .quiz-rail { order: -1; }
   .question-panel { min-height: 0; padding: 20px; }
   .question-panel h2 { font-size: 22px; }
+  .screen-speech-controller { top: 76px; align-items: flex-start; flex-direction: column; gap: 10px; }
 }
 
 @media (max-width: 520px) {
@@ -243,10 +256,12 @@ dialog small { display: block; margin-top: 12px; color: var(--muted); text-align
   .lesson-content { padding: 20px; }
   .sign-gallery { grid-template-columns: repeat(2, 1fr); }
   .quiz-actions { align-items: stretch; flex-direction: column; }
+  .screen-speech-controller .button-row { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
+  .screen-speech-controller [data-screen-speak] { grid-column: 1 / -1; }
 }
 
 @media print {
-  .topbar, .sidebar, .page-header .button-row, .module-tools, .quiz-rail, .toast { display: none !important; }
+  .topbar, .sidebar, .screen-speech-controller, .page-header .button-row, .module-tools, .quiz-rail, .toast { display: none !important; }
   main { margin: 0; padding: 20px; }
   body { background: #fff; }
 }
