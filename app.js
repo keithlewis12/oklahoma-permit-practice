@@ -197,14 +197,12 @@ const nameForm = document.getElementById("name-form");
 const firstNameInput = document.getElementById("first-name");
 const lastNameInput = document.getElementById("last-name");
 const speechRateSelect = document.getElementById("speech-rate");
-const speechVoiceSelect = document.getElementById("speech-voice");
 const speechDialog = document.getElementById("speech-dialog");
 
 document.addEventListener("DOMContentLoaded", init);
 
 function init() {
   speechRateSelect.value = String(state.speechRate || 1);
-  populateVoices();
   updateStudentUI();
   updateProgressUI();
   wireShell();
@@ -228,14 +226,7 @@ function wireShell() {
     updateSpeechControllerStatus();
     toast("Reading speed updated.");
   });
-  speechVoiceSelect.addEventListener("change", () => {
-    state.speechVoice = speechVoiceSelect.value;
-    saveState();
-    stopSpeech();
-    updateSpeechControllerStatus();
-  });
-  document.getElementById("test-voice").addEventListener("click", () => speakText("This is your selected reading voice and speed.", document.getElementById("speech-form")));
-  if ("speechSynthesis" in window) window.speechSynthesis.addEventListener?.("voiceschanged", populateVoices);
+  document.getElementById("test-voice").addEventListener("click", () => speakText("This is the current read aloud speed.", document.getElementById("speech-form")));
   nameForm.addEventListener("submit", event => {
     event.preventDefault();
     const firstName = firstNameInput.value.trim();
@@ -545,7 +536,7 @@ function installSpeechController() {
     <div class="button-row">
       <button class="primary-button compact" type="button" data-screen-speak><span class="speaker-icon" aria-hidden="true">🔊</span> Read aloud</button>
       <button class="secondary-button compact" type="button" data-screen-stop>Stop</button>
-      <button class="secondary-button compact" type="button" data-screen-settings>Voice &amp; speed</button>
+      <button class="secondary-button compact" type="button" data-screen-settings>Reading speed</button>
     </div>`;
   page.prepend(controller);
   controller.querySelector("[data-screen-speak]").addEventListener("click", speakCurrentScreen);
@@ -569,8 +560,7 @@ function speakCurrentScreen() {
 function updateSpeechControllerStatus() {
   const status = main.querySelector("[data-speech-status]");
   if (!status) return;
-  const voice = state.speechVoice || "Device default voice";
-  status.textContent = `${voice} · ${Number(state.speechRate || 1)}× speed`;
+  status.textContent = `Device voice · ${Number(state.speechRate || 1)}× speed`;
 }
 
 function speakQuestion(item) {
@@ -585,23 +575,9 @@ function speakText(text, element) {
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.rate = Number(state.speechRate || 1);
   utterance.lang = "en-US";
-  const selectedVoice = window.speechSynthesis.getVoices().find(voice => voice.name === state.speechVoice);
-  if (selectedVoice) utterance.voice = selectedVoice;
   if (element) element.classList.add("speaking");
   utterance.onend = utterance.onerror = () => element?.classList.remove("speaking");
   window.speechSynthesis.speak(utterance);
-}
-
-function populateVoices() {
-  if (!("speechSynthesis" in window)) {
-    speechVoiceSelect.innerHTML = `<option value="">Text-to-speech unavailable</option>`;
-    speechVoiceSelect.disabled = true;
-    return;
-  }
-  const voices = window.speechSynthesis.getVoices().filter(voice => voice.lang.toLowerCase().startsWith("en"));
-  const current = state.speechVoice || "";
-  speechVoiceSelect.innerHTML = `<option value="">Device default</option>${voices.map(voice => `<option value="${esc(voice.name)}">${esc(voice.name)}${voice.localService ? "" : " (online)"}</option>`).join("")}`;
-  speechVoiceSelect.value = voices.some(voice => voice.name === current) ? current : "";
 }
 
 function stopSpeech() {
