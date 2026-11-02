@@ -1,4 +1,4 @@
-const CACHE = "ok-permit-practice-v3";
+const CACHE = "ok-permit-practice-v4";
 const ASSETS = ["./", "index.html", "styles.css", "app.js", "manifest.webmanifest", "assets/app-icon.svg", "assets/road-study.svg"];
 
 self.addEventListener("install", event => {
