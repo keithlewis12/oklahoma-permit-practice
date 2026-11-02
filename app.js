@@ -14,10 +14,10 @@ const modules = [
     reference: "Oklahoma Driver Manual, Chapters 1-3",
     sections: [
       { heading: "What the written test covers", body: "Class D written-test questions come from the Oklahoma Driver Manual. Expect traffic laws, road signs, safe-driving practices, and the effects of alcohol and drugs." },
-      { heading: "Prepare before your visit", body: "Applicants should know the identification and residency documents required for their situation. Originals or certified documents may be required. A learner-permit applicant must provide a Social Security number, but the number does not appear on the license." },
-      { heading: "After the test", body: "A failed written test requires at least a one-day wait before retesting. Learner-permit drivers must follow the restrictions printed on the permit and drive only with the required supervising driver." }
+      { heading: "Prepare before your visit", body: "Applicants should know the identification and residency documents required for their situation. Primary identification must be an original or certified document; a certified U.S. birth certificate is one accepted option, while ordinary photocopies are not accepted. A learner-permit applicant must provide a Social Security number, but the number does not appear on the license." },
+      { heading: "After the test", body: "A failed written test requires at least a one-day wait before retesting. A learner-permit driver must normally have a licensed driver who is at least 21 years old seated beside the learner in the front passenger seat." }
     ],
-    keyFact: "REAL ID is a federal identification option. It is not an extra driving privilege and is not required simply to operate a vehicle."
+    keyFact: "REAL ID is a federal identification credential used for purposes such as domestic flights and access to certain federal facilities. It is not an extra driving privilege and is not required simply to operate a vehicle."
   },
   {
     id: "signs-signals",
@@ -39,7 +39,7 @@ const modules = [
     short: "Decide when to yield at intersections, crossings, buses, and roadside incidents.",
     reference: "Oklahoma Driver Manual, Chapter 5, pages 28-30",
     sections: [
-      { heading: "Intersections", body: "At a four-way stop, the first vehicle to enter has the right-of-way. When vehicles arrive at the same time, the driver on the left yields to the driver on the right." },
+      { heading: "Intersections", body: "At a four-way stop, the first vehicle to arrive normally goes first. When vehicles arrive at the same time, the driver on the left yields to the driver on the right. A driver turning left must also yield to oncoming traffic and pedestrians and turn only when there is enough clear distance." },
       { heading: "People and special vehicles", body: "Yield to pedestrians, especially blind pedestrians using a white cane or guide dog. Stop for a school bus displaying flashing red lights or its stop arm unless a listed divided-roadway exception applies." },
       { heading: "Move over or slow down", body: "When a stationary vehicle with flashing lights is on the roadside, move to a lane away from it when safe. If you cannot safely change lanes, slow down and proceed carefully." }
     ],
@@ -66,8 +66,8 @@ const modules = [
     reference: "Oklahoma Driver Manual, Chapters 7-9, pages 39-48",
     sections: [
       { heading: "The basic speed rule", body: "A posted limit is the maximum under ideal conditions. Reduce speed for rain, fog, darkness, traffic, roadway width, visibility, and vehicle condition." },
-      { heading: "Leave a safety cushion", body: "Use at least the three-second following rule in good conditions and increase to four seconds or more in poor conditions. Stopping distance includes perception, reaction, and braking." },
-      { heading: "Park so the vehicle cannot roll", body: "Set the parking brake, select park or the proper gear, and position the wheels correctly on a hill. Parallel parking must be close to the curb and clear of prohibited areas." }
+      { heading: "Leave a safety cushion", body: "Use at least the three-second following rule in good conditions and increase the distance in poor conditions. Stopping distance includes perception, reaction, and braking. On a wet road, slow down to avoid hydroplaning, which occurs when the tires lose contact with the road and ride on a film of water. Avoid sudden braking or steering." },
+      { heading: "Park so the vehicle cannot roll", body: "Set the parking brake and select park or the proper gear. When parking downhill beside a curb, turn the front wheels toward the curb. When parking uphill beside a curb, turn the wheels away from the curb. Parallel parking must be close to the curb and clear of prohibited areas." }
     ],
     keyFact: "At night, drive slowly enough to stop within the distance illuminated by your headlights."
   },
@@ -78,8 +78,8 @@ const modules = [
     short: "Drive safely around pedestrians, bicycles, motorcycles, trucks, trains, and slow vehicles.",
     reference: "Oklahoma Driver Manual, Chapter 10, pages 49-57",
     sections: [
-      { heading: "Smaller road users", body: "Pedestrians, bicyclists, and motorcyclists can be difficult to see. Check carefully before turning or opening a door. Give bicycles and motorcycles adequate space and never crowd them from a lane." },
-      { heading: "Large vehicles", body: "Trucks have large blind spots and need extra room to turn. Do not linger beside a truck, cut closely in front, or assume its driver can see you." },
+      { heading: "Smaller road users", body: "Pedestrians, bicyclists, and motorcyclists can be difficult to see. Check mirrors and blind spots before turning across a bicycle lane, and yield before crossing a bicyclist's path. A motorcycle is entitled to use a full traffic lane, so never crowd a rider or try to share the lane beside one." },
+      { heading: "Large vehicles", body: "Trucks have large blind spots, so do not linger beside one or cut closely in front. Trucks make wide right turns and may leave open space between the truck and the curb. Never move into that space or try to pass a truck that may be turning." },
       { heading: "Railroads and slow vehicles", body: "Never drive around a lowered railroad gate. Slow-moving vehicles display an orange triangle and may enter or turn unexpectedly, especially in rural areas." }
     ],
     keyFact: "At a railroad crossing, a train always has the right-of-way and cannot stop quickly."
@@ -92,7 +92,8 @@ const modules = [
     reference: "Oklahoma Driver Manual, Chapter 11, pages 58-62",
     sections: [
       { heading: "Stay alert", body: "Driving requires continuous attention. Put phones away, scan well ahead, check mirrors, and avoid driving when fatigue, medication, or emotion reduces concentration." },
-      { heading: "Weather and emergencies", body: "Slow down before hazards. Avoid sudden steering or braking on slippery surfaces. Never enter water covering a roadway because depth and current are difficult to judge." },
+      { heading: "Weather and flooded roads", body: "Slow down before hazards and avoid sudden steering or braking on slippery surfaces. Never enter water covering a roadway: you cannot reliably judge its depth or the force and pull of the current. Water can hide a washed-out roadbed, stall a vehicle, or sweep it away. Turn around; do not drown." },
+      { heading: "Vehicle hazards and animals", body: "Carbon monoxide is invisible and has no smell or taste. Drowsiness or dizziness can warn that it is entering the vehicle; pull off the road, turn off the engine, open the windows, and get fresh air. If an animal suddenly runs into your path, do not swerve into another lane. Slow down while maintaining control because swerving may cause a more serious crash." },
       { heading: "After a crash", body: "Stop, protect the scene, help injured people, and exchange required information. Contact law enforcement when required and answer questions truthfully without arguing about blame." }
     ],
     keyFact: "If a trip is unsafe because of weather, delay it. Good judgment is part of safe driving."
@@ -104,9 +105,9 @@ const modules = [
     short: "Understand impairment, implied consent, zero tolerance, and license consequences.",
     reference: "Oklahoma Driver Manual, Chapters 12-13, pages 63-73",
     sections: [
-      { heading: "Impairment begins early", body: "Alcohol and other drugs reduce judgment, coordination, reaction time, and vision. Prescription and over-the-counter medicine can also make driving unsafe." },
+      { heading: "Impairment begins early", body: "Alcohol and other drugs reduce judgment, coordination, reaction time, and vision. Before driving after taking prescription or over-the-counter medicine, check the label for warnings about side effects such as drowsiness or nervousness. Ask a pharmacist or doctor if you are unsure whether it is safe to drive." },
       { heading: "Implied consent", body: "Driving in Oklahoma means agreeing to a requested test for alcohol concentration. Refusing a lawful test can lead to automatic loss of driving privileges." },
-      { heading: "Under 21 means zero tolerance", body: "For drivers under 21, any measurable amount of alcohol can trigger license consequences. Marijuana and other impairing drugs remain unsafe and illegal to use while driving." }
+      { heading: "Under 21 means zero tolerance", body: "For drivers under 21, any measurable amount of alcohol can trigger license consequences. Marijuana impairs driving even when medically authorized, and it is illegal to drive with any detectable level of cannabis in the body." }
     ],
     keyFact: "A BAC of 0.08 or more can support a DUI action, but a driver can be impaired and convicted at a lower concentration."
   }
@@ -158,9 +159,9 @@ const questions = [
   q("d1", "safe-driving", "What is the safest way to handle a phone while driving?", ["Hold it below the window line", "Use it only at red lights", "Put it away and focus on driving", "Read messages but do not answer"], 2, "A phone takes attention from driving. Put it away or pull over safely before using it.", "Chapter 11, Car Phone Safety"),
   q("d2", "safe-driving", "Why is driving through water covering the roadway dangerous?", ["Water always damages headlights", "You cannot reliably judge its depth or force", "It makes the speed limit increase", "It improves tire traction"], 1, "Floodwater depth and current are difficult to judge and can sweep a vehicle away.", "Chapter 11, Flood Dynamics"),
   q("d3", "safe-driving", "What should you do if bad weather makes a trip unsafe?", ["Drive faster to shorten the trip", "Delay the trip or stop in a safe place", "Follow another vehicle closely", "Use high beams in heavy fog"], 1, "Safe driving includes deciding not to continue when conditions are too dangerous.", "Chapter 11, Pay Attention"),
-  q("d4", "safe-driving", "What is a warning sign of carbon monoxide inside a vehicle?", ["A headache or dizziness", "Improved concentration", "Tire vibration", "A bright dashboard"], 0, "Carbon monoxide can cause a headache, dizziness, weakness, and loss of consciousness. Ventilate the vehicle and stop using it if it has exhaust problems.", "Chapter 11, Carbon Monoxide"),
+  q("d4", "safe-driving", "What is a warning sign of carbon monoxide inside a vehicle?", ["Drowsiness or dizziness", "Improved concentration", "Tire vibration", "A bright dashboard"], 0, "Carbon monoxide can cause drowsiness, dizziness, and loss of consciousness. Pull off the road, turn off the engine, open the windows, and get fresh air.", "Chapter 11, Carbon Monoxide"),
   q("d5", "safe-driving", "After a collision, what should a driver do?", ["Leave before traffic builds", "Stop, protect the scene, and provide required information", "Argue about who caused it", "Move injured people unless immediate danger exists"], 1, "Drivers must stop, assist safely, exchange required information, and contact authorities when required.", "Chapter 11, After a Crash"),
-  q("d6", "safe-driving", "When an animal suddenly appears ahead, what is usually the safest response?", ["Swerve sharply into another lane", "Brake in a controlled manner while remaining in your lane when possible", "Close your eyes and hold the wheel", "Accelerate past the animal"], 1, "Sudden swerving can cause a more serious collision. Brake firmly while maintaining control and follow the safest available path.", "Chapter 11, Animals"),
+  q("d6", "safe-driving", "When an animal suddenly appears ahead, what is usually the safest response?", ["Swerve sharply into another lane", "Avoid swerving and slow down while maintaining control", "Close your eyes and hold the wheel", "Accelerate past the animal"], 1, "The manual warns that swerving may cause a more serious collision. Avoid swerving and slow down while maintaining control.", "Chapter 11, Animals"),
 
   q("a1", "alcohol-penalties", "Under Oklahoma's zero-tolerance rule, what amount of alcohol can affect a driver under 21?", ["Only a BAC of 0.08 or higher", "Only a BAC of 0.05 or higher", "Any measurable amount", "Alcohol rules begin at age 25"], 2, "Drivers under 21 can face license consequences for any measurable amount of alcohol.", "Chapter 12, Zero Tolerance"),
   q("a2", "alcohol-penalties", "What does Oklahoma's implied-consent law mean?", ["Drivers may refuse every requested test without consequences", "Driving means agreeing to submit to a lawfully requested alcohol test", "Only commercial drivers may be tested", "A test is required before every trip"], 1, "By driving or being in actual physical control of a vehicle, a person agrees to submit to lawfully requested testing under the implied-consent law.", "Chapter 12, Implied Consent"),
