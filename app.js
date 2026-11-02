@@ -225,12 +225,14 @@ function wireShell() {
     state.speechRate = Number(speechRateSelect.value);
     saveState();
     stopSpeech();
+    updateSpeechControllerStatus();
     toast("Reading speed updated.");
   });
   speechVoiceSelect.addEventListener("change", () => {
     state.speechVoice = speechVoiceSelect.value;
     saveState();
     stopSpeech();
+    updateSpeechControllerStatus();
   });
   document.getElementById("test-voice").addEventListener("click", () => speakText("This is your selected reading voice and speed.", document.getElementById("speech-form")));
   if ("speechSynthesis" in window) window.speechSynthesis.addEventListener?.("voiceschanged", populateVoices);
@@ -377,10 +379,12 @@ function renderReview() {
   const reviewQuestions = state.missed.map(id => questions.find(item => item.id === id)).filter(Boolean);
   if (!reviewQuestions.length) {
     main.innerHTML = `<div class="page"><header class="page-header"><div><p class="eyebrow">Personal review</p><h1>Review missed questions</h1></div></header><section class="empty-state"><div><img src="assets/road-study.svg" alt="Road signs and an open study manual"><h2>Nothing to review yet</h2><p>Questions answered incorrectly during practice or a mock test will appear here.</p><a class="primary-button" href="#practice">Start practicing</a></div></section></div>`;
+    wireDynamic();
     return;
   }
   main.innerHTML = `<div class="page"><header class="page-header"><div><p class="eyebrow">Personal review</p><h1>${reviewQuestions.length} question${reviewQuestions.length === 1 ? "" : "s"} to revisit</h1><p class="lede">Correct answers remove questions from this review list.</p></div><button class="primary-button" id="start-review">Begin review</button></header><section class="result-panel">${moduleBreakdown(reviewQuestions)}</section></div>`;
   document.getElementById("start-review").addEventListener("click", () => startQuiz("review", shuffle(reviewQuestions), null));
+  wireDynamic();
 }
 
 function moduleBreakdown(items) {
@@ -436,6 +440,7 @@ function renderQuiz() {
     renderQuiz();
     if (isExam) startExamTimer();
   });
+  wireDynamic();
 }
 
 function checkCurrentAnswer() {
@@ -478,6 +483,7 @@ function reviewExam() {
   main.querySelectorAll("[data-review-index]").forEach(button => button.addEventListener("click", () => { quizSession.index = Number(button.dataset.reviewIndex); renderQuiz(); startExamTimer(); }));
   document.getElementById("return-exam").addEventListener("click", () => { renderQuiz(); startExamTimer(); });
   document.getElementById("submit-exam").addEventListener("click", submitExam);
+  wireDynamic();
 }
 
 function submitExam() {
@@ -515,11 +521,56 @@ function renderResults() {
 }
 
 function wireDynamic() {
+  installSpeechController();
   main.querySelectorAll("[data-speak]").forEach(button => button.addEventListener("click", () => {
     const element = document.querySelector(button.dataset.speak);
     if (element) speakText(cleanSpeakText(element.innerText), element);
   }));
   main.querySelectorAll("[data-stop-speech]").forEach(button => button.addEventListener("click", stopSpeech));
+}
+
+function installSpeechController() {
+  const page = main.querySelector(".page");
+  if (!page || page.querySelector(".screen-speech-controller")) return;
+  const isQuestion = Boolean(quizSession && document.getElementById("question-panel"));
+  const isLesson = Boolean(document.getElementById("lesson-content"));
+  const controller = document.createElement("section");
+  controller.className = "screen-speech-controller";
+  controller.setAttribute("aria-label", "Text-to-speech controls");
+  controller.innerHTML = `
+    <div class="speech-controller-copy">
+      <strong>Listen to ${isQuestion ? "this question" : isLesson ? "this lesson" : "this screen"}</strong>
+      <span data-speech-status></span>
+    </div>
+    <div class="button-row">
+      <button class="primary-button compact" type="button" data-screen-speak>Read aloud</button>
+      <button class="secondary-button compact" type="button" data-screen-stop>Stop</button>
+      <button class="secondary-button compact" type="button" data-screen-settings>Voice &amp; speed</button>
+    </div>`;
+  page.prepend(controller);
+  controller.querySelector("[data-screen-speak]").addEventListener("click", speakCurrentScreen);
+  controller.querySelector("[data-screen-stop]").addEventListener("click", stopSpeech);
+  controller.querySelector("[data-screen-settings]").addEventListener("click", () => speechDialog.showModal());
+  updateSpeechControllerStatus();
+}
+
+function speakCurrentScreen() {
+  if (quizSession && document.getElementById("question-panel")) {
+    speakQuestion(quizSession.questions[quizSession.index]);
+    return;
+  }
+  const target = document.getElementById("lesson-content") || main.querySelector(".page");
+  if (!target) return;
+  const readable = target.cloneNode(true);
+  readable.querySelectorAll(".screen-speech-controller, button, .privacy-note").forEach(element => element.remove());
+  speakText(cleanSpeakText(readable.innerText), target);
+}
+
+function updateSpeechControllerStatus() {
+  const status = main.querySelector("[data-speech-status]");
+  if (!status) return;
+  const voice = state.speechVoice || "Device default voice";
+  status.textContent = `${voice} · ${Number(state.speechRate || 1)}× speed`;
 }
 
 function speakQuestion(item) {
