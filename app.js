@@ -543,7 +543,7 @@ function installSpeechController() {
       <span data-speech-status></span>
     </div>
     <div class="button-row">
-      <button class="primary-button compact" type="button" data-screen-speak>Read aloud</button>
+      <button class="primary-button compact" type="button" data-screen-speak><span class="speaker-icon" aria-hidden="true">🔊</span> Read aloud</button>
       <button class="secondary-button compact" type="button" data-screen-stop>Stop</button>
       <button class="secondary-button compact" type="button" data-screen-settings>Voice &amp; speed</button>
     </div>`;
