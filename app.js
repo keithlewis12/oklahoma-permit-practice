@@ -190,6 +190,8 @@ let state = loadState();
 let quizSession = null;
 let examTimer = null;
 let toastTimer = null;
+let speechPauseTimer = null;
+let speechRunId = 0;
 
 const main = document.getElementById("main-content");
 const nameDialog = document.getElementById("name-dialog");
@@ -515,7 +517,7 @@ function wireDynamic() {
   installSpeechController();
   main.querySelectorAll("[data-speak]").forEach(button => button.addEventListener("click", () => {
     const element = document.querySelector(button.dataset.speak);
-    if (element) speakText(cleanSpeakText(element.innerText), element);
+    if (element) speakElementSemantically(element);
   }));
   main.querySelectorAll("[data-stop-speech]").forEach(button => button.addEventListener("click", stopSpeech));
 }
@@ -552,9 +554,7 @@ function speakCurrentScreen() {
   }
   const target = document.getElementById("lesson-content") || main.querySelector(".page");
   if (!target) return;
-  const readable = target.cloneNode(true);
-  readable.querySelectorAll(".screen-speech-controller, button, .privacy-note").forEach(element => element.remove());
-  speakText(cleanSpeakText(readable.innerText), target);
+  speakElementSemantically(target);
 }
 
 function updateSpeechControllerStatus() {
@@ -569,18 +569,75 @@ function speakQuestion(item) {
   speakText(text, document.getElementById("question-panel"));
 }
 
+function speakElementSemantically(element) {
+  const readable = element.cloneNode(true);
+  readable.querySelectorAll(".screen-speech-controller, button, .privacy-note, [aria-hidden='true']").forEach(item => item.remove());
+  const candidates = [...readable.querySelectorAll("h1, h2, h3, p, li, figcaption, th, td, .key-fact")];
+  const segments = candidates.map(node => {
+    const text = cleanSpeakText(node.innerText || node.textContent || "");
+    if (!text) return null;
+    if (/^H[1-3]$/.test(node.tagName)) return { text: ensureEnding(text), pauseBefore: 350, pauseAfter: 450, rateScale: 0.92, pitch: 1.03 };
+    if (node.matches("li")) return { text: ensureEnding(text), pauseBefore: 80, pauseAfter: 260, rateScale: 1, pitch: 1 };
+    if (node.matches("th")) return { text: ensureEnding(text), pauseBefore: 120, pauseAfter: 180, rateScale: 0.96, pitch: 1.02 };
+    if (node.matches("td")) return { text: ensureEnding(text), pauseBefore: 40, pauseAfter: 240, rateScale: 1, pitch: 1 };
+    if (node.matches(".key-fact")) return { text: ensureEnding(text), pauseBefore: 300, pauseAfter: 420, rateScale: 0.96, pitch: 1.02 };
+    return { text: ensureEnding(text), pauseBefore: 100, pauseAfter: 300, rateScale: 1, pitch: 1 };
+  }).filter(Boolean);
+  if (!segments.length) segments.push({ text: ensureEnding(cleanSpeakText(readable.innerText)), pauseBefore: 0, pauseAfter: 0, rateScale: 1, pitch: 1 });
+  speakSegments(segments, element);
+}
+
+function speakSegments(segments, element) {
+  if (!("speechSynthesis" in window)) { toast("Read aloud is not supported in this browser."); return; }
+  stopSpeech();
+  const runId = ++speechRunId;
+  let index = 0;
+  element?.classList.add("speaking");
+  const finish = () => element?.classList.remove("speaking");
+  const advance = () => {
+    if (runId !== speechRunId) return finish();
+    if (index >= segments.length) return finish();
+    const segment = segments[index++];
+    speechPauseTimer = setTimeout(() => {
+      if (runId !== speechRunId) return finish();
+      const utterance = makeUtterance(segment.text, segment.rateScale, segment.pitch);
+      utterance.onend = () => {
+        if (runId !== speechRunId) return finish();
+        speechPauseTimer = setTimeout(advance, segment.pauseAfter);
+      };
+      utterance.onerror = finish;
+      window.speechSynthesis.speak(utterance);
+    }, segment.pauseBefore);
+  };
+  advance();
+}
+
+function makeUtterance(text, rateScale = 1, pitch = 1) {
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.rate = Math.max(0.5, Math.min(2, Number(state.speechRate || 1) * rateScale));
+  utterance.pitch = pitch;
+  utterance.lang = "en-US";
+  return utterance;
+}
+
+function ensureEnding(text) { return /[.!?]$/.test(text) ? text : `${text}.`; }
+
 function speakText(text, element) {
   if (!("speechSynthesis" in window)) { toast("Text-to-speech is not supported in this browser."); return; }
   stopSpeech();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.rate = Number(state.speechRate || 1);
-  utterance.lang = "en-US";
+  const runId = ++speechRunId;
+  const utterance = makeUtterance(text);
   if (element) element.classList.add("speaking");
-  utterance.onend = utterance.onerror = () => element?.classList.remove("speaking");
+  utterance.onend = utterance.onerror = () => {
+    if (runId === speechRunId) element?.classList.remove("speaking");
+  };
   window.speechSynthesis.speak(utterance);
 }
 
 function stopSpeech() {
+  speechRunId++;
+  clearTimeout(speechPauseTimer);
+  speechPauseTimer = null;
   if ("speechSynthesis" in window) window.speechSynthesis.cancel();
   document.querySelectorAll(".speaking").forEach(element => element.classList.remove("speaking"));
 }
