@@ -1,5 +1,5 @@
-const CACHE = "ok-permit-practice-v10";
-const ASSETS = ["./", "index.html", "styles.css?v=10", "app.js?v=10", "manifest.webmanifest", "assets/app-icon.svg", "assets/road-study.svg"];
+const CACHE = "ok-permit-practice-v11";
+const ASSETS = ["./", "index.html", "styles.css?v=11", "app.js?v=11", "manifest.webmanifest", "assets/app-icon.svg", "assets/road-study.svg"];
 
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
